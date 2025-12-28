@@ -3,12 +3,14 @@ package app;
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.Athlete;
+import model.SoccerSession;
 
 public class App {
     public static void main(String[] args) {
         System.out.println("Welcome to Athlete Performance System");
         Scanner scnr = new Scanner(System.in);
         ArrayList<Athlete> athletes = new ArrayList<>();
+        ArrayList<SoccerSession> soccerSessions = new ArrayList<>();
 
         boolean cont = true;
         int num = 0;
@@ -19,7 +21,8 @@ public class App {
             System.out.println("2. Log soccer session");
             System.out.println("3. Log workout");
             System.out.println("4. View Athletes");
-            System.out.println("5. Exit");
+            System.out.println("5. View soccer sessions");
+            System.out.println("6. Exit");
 
             num = scnr.nextInt();
             scnr.nextLine(); // consume newline
@@ -50,6 +53,21 @@ public class App {
                     break;
                 case 2:
                     System.out.println("Log soccer session");
+                    System.out.println("Athlete name: ");
+                    String athleteName = scnr.nextLine();
+                    System.out.println("Date (YYYY-MM-DD): ");
+                    String date = scnr.nextLine();
+                    System.out.println("Duration (minutes): ");
+                    int durationMinutes = scnr.nextInt();
+                    scnr.nextLine();
+                    System.out.println("Intensity level (1-10): ");
+                    int intensityLevel = scnr.nextInt();
+                    scnr.nextLine();
+                    System.out.println("Notes: ");
+                    String notes = scnr.nextLine();
+                    SoccerSession session = new SoccerSession(athleteName, date, durationMinutes, intensityLevel, notes);
+                    soccerSessions.add(session);
+                    System.out.println("Soccer session logged successfully.");
                     break;
                 case 3:
                     System.out.println("Log workout");
@@ -65,6 +83,16 @@ public class App {
                     }
                     break;
                 case 5:
+                    System.out.println("View soccer sessions");
+                    if(soccerSessions.isEmpty()) {
+                        System.out.println("No soccer sessions available.");
+                        break;
+                    }
+                    for (SoccerSession info : soccerSessions) {
+                        System.out.println("Athlete: " + info.getAthleteName() + ", Date: " + info.getDate() + ", Duration: " + info.getDurationMinutes() + " minutes, Intensity Level: " + info.getIntensityLevel() + ", Notes: " + info.getNotes());
+                    }
+                    break;
+                case 6:
                     System.out.println("Exiting...");
                     cont = false;
                     break;
