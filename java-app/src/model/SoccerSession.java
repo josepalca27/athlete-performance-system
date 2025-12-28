@@ -3,7 +3,6 @@ package model;
 public class SoccerSession {
 
 	// TODO: declare fields here when you decide parameters, for example:
-	private String athleteName;
 	private String date;
 	private int durationMinutes;
     private int intensityLevel;
@@ -13,8 +12,7 @@ public class SoccerSession {
 	 * Constructor skeleton. Replace the commented example parameters
 	 * with the actual parameters you want to use.
 	 */
-	public SoccerSession(String athleteName, String date, int durationMinutes, int intensityLevel, String notes) {
-		this.athleteName = athleteName;
+	public SoccerSession(String date, int durationMinutes, int intensityLevel, String notes) {
 		this.date = date;
 		this.durationMinutes = durationMinutes;
         this.intensityLevel = intensityLevel;
@@ -22,9 +20,6 @@ public class SoccerSession {
 	}
 
 	// Getters will be implemented after you confirm the constructor parameters.
-    public String getAthleteName() {
-        return athleteName;
-    }
     public String getDate() {
         return date;
     }

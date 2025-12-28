@@ -78,7 +78,7 @@ public class App {
                     scnr.nextLine();
                     System.out.println("Notes: ");
                     String notes = scnr.nextLine();
-                    SoccerSession session = new SoccerSession(athleteName, date, durationMinutes, intensityLevel, notes);
+                    SoccerSession session = new SoccerSession(date, durationMinutes, intensityLevel, notes);
                     found.addSoccerSession(session);
                     System.out.println("Soccer session logged successfully.");
                     break;
