@@ -5,12 +5,20 @@ import java.util.Scanner;
 import model.Athlete;
 import model.SoccerSession;
 
+
 public class App {
+    private static Athlete findAthlete(ArrayList<Athlete> athletes, String name) {
+    for (Athlete athlete : athletes) {
+        if (athlete.getName().equalsIgnoreCase(name)) {
+            return athlete;
+        }
+    }
+    return null;
+}
     public static void main(String[] args) {
         System.out.println("Welcome to Athlete Performance System");
         Scanner scnr = new Scanner(System.in);
         ArrayList<Athlete> athletes = new ArrayList<>();
-        ArrayList<SoccerSession> soccerSessions = new ArrayList<>();
 
         boolean cont = true;
         int num = 0;
@@ -55,6 +63,11 @@ public class App {
                     System.out.println("Log soccer session");
                     System.out.println("Athlete name: ");
                     String athleteName = scnr.nextLine();
+                    Athlete found = findAthlete(athletes, athleteName);
+                    if (found == null) {
+                        System.out.println("Athlete not found.");
+                        break;
+                    }
                     System.out.println("Date (YYYY-MM-DD): ");
                     String date = scnr.nextLine();
                     System.out.println("Duration (minutes): ");
@@ -66,7 +79,7 @@ public class App {
                     System.out.println("Notes: ");
                     String notes = scnr.nextLine();
                     SoccerSession session = new SoccerSession(athleteName, date, durationMinutes, intensityLevel, notes);
-                    soccerSessions.add(session);
+                    found.addSoccerSession(session);
                     System.out.println("Soccer session logged successfully.");
                     break;
                 case 3:
@@ -84,12 +97,27 @@ public class App {
                     break;
                 case 5:
                     System.out.println("View soccer sessions");
-                    if(soccerSessions.isEmpty()) {
-                        System.out.println("No soccer sessions available.");
+                    if(athletes.isEmpty()) {
+                        System.out.println("No athletes available.");
                         break;
                     }
-                    for (SoccerSession info : soccerSessions) {
-                        System.out.println("Athlete: " + info.getAthleteName() + ", Date: " + info.getDate() + ", Duration: " + info.getDurationMinutes() + " minutes, Intensity Level: " + info.getIntensityLevel() + ", Notes: " + info.getNotes());
+                    for (Athlete athleteItem : athletes) {
+                        ArrayList<SoccerSession> sessions = athleteItem.getSoccerSessions();
+
+                        if (sessions.isEmpty()) {
+                            System.out.println(athleteItem.getName() + ": No soccer sessions.");
+                            continue;
+                        }
+
+                        for (SoccerSession sessionInfo : sessions) {
+                            System.out.println(
+                                "Athlete: " + athleteItem.getName() +
+                                ", Date: " + sessionInfo.getDate() +
+                                ", Duration: " + sessionInfo.getDurationMinutes() + " minutes" +
+                                ", Intensity: " + sessionInfo.getIntensityLevel() +
+                                ", Notes: " + sessionInfo.getNotes()
+                            );
+                        }
                     }
                     break;
                 case 6:
