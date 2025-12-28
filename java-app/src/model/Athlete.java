@@ -88,6 +88,4 @@ public class Athlete {
         return soccerSessions;
     }
 
-
-
 }

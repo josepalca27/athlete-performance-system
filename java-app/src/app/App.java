@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import model.Athlete;
 import model.SoccerSession;
+import storage.CsvStorage;
 
 
 public class App {
@@ -122,6 +123,7 @@ public class App {
                     break;
                 case 6:
                     System.out.println("Exiting...");
+                    CsvStorage.saveAthletes("data/athletes.csv", athletes);
                     cont = false;
                     break;
                 default:
