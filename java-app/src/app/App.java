@@ -124,6 +124,7 @@ public class App {
                 case 6:
                     System.out.println("Exiting...");
                     CsvStorage.saveAthletes("data/athletes.csv", athletes);
+                    CsvStorage.loadSoccerSessions("data/soccer_sessions.csv", athletes);
                     cont = false;
                     break;
                 default:
