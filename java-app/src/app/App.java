@@ -19,7 +19,8 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Welcome to Athlete Performance System");
         Scanner scnr = new Scanner(System.in);
-        ArrayList<Athlete> athletes = new ArrayList<>();
+        ArrayList<Athlete> athletes = CsvStorage.loadAthletes("data/athletes.csv");
+        CsvStorage.loadSoccerSessions("data/soccer_sessions.csv", athletes);
 
         boolean cont = true;
         int num = 0;
@@ -124,7 +125,8 @@ public class App {
                 case 6:
                     System.out.println("Exiting...");
                     CsvStorage.saveAthletes("data/athletes.csv", athletes);
-                    CsvStorage.loadSoccerSessions("data/soccer_sessions.csv", athletes);
+                    CsvStorage.saveSoccerSessions("data/soccer_sessions.csv", athletes);
+                    
                     cont = false;
                     break;
                 default:
