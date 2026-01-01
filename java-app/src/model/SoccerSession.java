@@ -2,7 +2,7 @@ package model;
 
 public class SoccerSession {
 
-	// TODO: declare fields here when you decide parameters, for example:
+	//declare fields here when you decide parameters, for example:
 	private String date;
 	private int durationMinutes;
     private int intensityLevel;

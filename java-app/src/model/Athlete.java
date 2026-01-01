@@ -1,6 +1,5 @@
 package model;
 import java.util.ArrayList;
-import model.SoccerSession;
 
 public class Athlete {
     private String name;
@@ -11,6 +10,7 @@ public class Athlete {
     private double height;
     private String country;
     private ArrayList<SoccerSession> soccerSessions;
+    private ArrayList<Workout> workouts;
 
     public Athlete(String name, int age, String sport, String position, double weight, double height, String country) {
         this.name = name;
@@ -21,6 +21,7 @@ public class Athlete {
         this.height = height;
         this.country = country;
         this.soccerSessions = new ArrayList<>();
+        this.workouts = new ArrayList<>();
     }
 
     // Getters and Setters
@@ -84,8 +85,45 @@ public class Athlete {
         this.soccerSessions.add(session);
     }
 
+    public void addWorkout(Workout workout) {
+        this.workouts.add(workout);
+    }
+
+    public ArrayList<Workout> getWorkouts() {
+        return workouts;
+    }
+
     public ArrayList<SoccerSession> getSoccerSessions() {
         return soccerSessions;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + age + ") - " + sport + " (" + position + ") - " + country;
+    }
+   
+
+    public int getTotalSoccerMinutes() {
+        int total = 0;
+        for (SoccerSession session : soccerSessions) {
+            total += session.getDurationMinutes();
+        }
+        return total;
+    }
+
+    public double getAverageSoccerIntensity() {
+        if (soccerSessions.isEmpty()) {
+            return 0.0;
+        }
+        int totalIntensity = 0;
+        for (SoccerSession session : soccerSessions) {
+            totalIntensity += session.getIntensityLevel();
+        }
+        return (double) totalIntensity / soccerSessions.size();
+    }
+
+    public int getSoccerSessionsCount() {
+        return soccerSessions.size();
     }
 
 }

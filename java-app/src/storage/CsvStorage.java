@@ -1,6 +1,7 @@
 package storage;
 import model.Athlete;
 import model.SoccerSession;
+import model.Workout;
 
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -45,7 +46,8 @@ public class CsvStorage {
     }
 
     public static void saveAthletes(String path, ArrayList<Athlete> athletes) {
-
+        // Code to save athletes to CSV will go here
+        ensureParentDirExists(path);
         try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
 
             out.println("name,age,sport,position,weight,height,country");
@@ -68,18 +70,21 @@ public class CsvStorage {
 
     public static void saveSoccerSessions(String path, ArrayList<Athlete> athletes) {
         // Code to load soccer sessions from CSV will go here
+        ensureParentDirExists(path);
         try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
 
             out.println("athleteName,date,durationMinutes,intensityLevel,notes");
 
             for (Athlete athlete : athletes) {
                 for (SoccerSession session : athlete.getSoccerSessions()) {
+                    String notes = session.getNotes();
+                    String safeNotes = notes.replace("\"", "\"\""); // escape quotes
                     out.println(
                         athlete.getName() + "," +
                         session.getDate() + "," +
                         session.getDurationMinutes() + "," +
                         session.getIntensityLevel() + "," +
-                        "\"" + session.getNotes() + "\""
+                        "\"" + safeNotes + "\""
                     );
                 }
             }
@@ -128,4 +133,76 @@ public class CsvStorage {
         }
     }
 
+    public static void saveWorkouts(String path, ArrayList<Athlete> athletes) {
+        // Code to load workouts from CSV will go here
+        ensureParentDirExists(path);
+        try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
+
+            out.println("athleteName,date,type,durationMinutes,intensityLevel,notes");
+
+            for (Athlete athlete : athletes) {
+                for (Workout workout : athlete.getWorkouts()) {
+                    String notes = workout.getNotes();
+                    String safeNotes = notes.replace("\"", "\"\""); // escape quotes
+                    out.println(
+                        athlete.getName() + "," +
+                        workout.getDate() + "," +
+                        workout.getType() + "," +
+                        workout.getDurationMinutes() + "," +
+                        workout.getIntensityLevel() + "," +
+                        "\"" + safeNotes + "\""
+                    );
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error saving workouts: " + e.getMessage());
+        }   
+    }
+
+    public static void loadWorkouts(String path, ArrayList<Athlete> athletes) {
+        // Code to load workouts to CSV will go here
+        if (!new File(path).exists()) return;
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {    
+            
+           br.readLine(); // skip header
+           String line;     
+           while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                String[] parts = line.split(",", 6);
+                if (parts.length < 6) continue;
+                String athleteName = parts[0];
+                String date = parts[1];
+                String type = parts[2];
+                int durationMinutes = Integer.parseInt(parts[3]);
+                int intensityLevel = Integer.parseInt(parts[4]);
+                String notes = parts[5].replaceAll("^\"|\"$", ""); // remove surrounding quotes
+
+                // find athlete
+                Athlete athlete = null;
+                for (Athlete a : athletes) {
+                    if (a.getName().equalsIgnoreCase(athleteName)) {
+                        athlete = a;
+                        break;
+                    }
+                }
+                if (athlete != null) {
+                    // create Workout
+                    model.Workout workout = new model.Workout(date, type, durationMinutes, intensityLevel, notes);
+                    // add to athlete
+                    athlete.addWorkout(workout);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading workouts: " + e.getMessage());
+        }
+    }
+
+    private static void ensureParentDirExists(String path) {
+        File file = new File(path);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+    }
 }
