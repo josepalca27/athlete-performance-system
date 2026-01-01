@@ -226,6 +226,9 @@ private static double readDoubleInRange(Scanner scnr, String prompt, double min,
                     System.out.println("Total Soccer Sessions: " + athFound.getSoccerSessionsCount());
                     System.out.println("Total Soccer Minutes: " + athFound.getTotalSoccerMinutes());
                     System.out.println("Average Soccer Intensity: " + athFound.getAverageSoccerIntensity());
+                    System.out.println("Total Workouts: " + athFound.getWorkoutCount());
+                    System.out.println("Total Workout Minutes: " + athFound.getTotalWorkoutMinutes());
+                    System.out.println("Average Workout Intensity: " + athFound.getAverageWorkoutIntensity());
                     break;
 
                 case 7:

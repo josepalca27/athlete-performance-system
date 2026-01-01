@@ -126,4 +126,28 @@ public class Athlete {
         return soccerSessions.size();
     }
 
+    public int getWorkoutCount() {
+        return workouts.size();
+    }
+
+    public int getTotalWorkoutMinutes() {
+        int total = 0;
+        for (Workout workout : workouts) {
+            total += workout.getDurationMinutes();
+        }
+        return total;
+    }
+
+    public double getAverageWorkoutIntensity() {
+        if (workouts.isEmpty()) {
+            return 0.0;
+        }
+        int totalIntensity = 0;
+        for (Workout workout : workouts) {
+            totalIntensity += workout.getIntensityLevel();
+        }
+        return (double) totalIntensity / workouts.size();
+    }   
+    
+
 }
