@@ -112,6 +112,7 @@ public class CsvStorage {
                 int durationMinutes = Integer.parseInt(parts[2]);
                 int intensityLevel = Integer.parseInt(parts[3]);
                 String notes = parts[4].replaceAll("^\"|\"$", ""); // remove surrounding quotes
+                notes = notes.replace("\"\"", "\""); // unescape quotes
 
                 // find athlete
                 Athlete athlete = null;
@@ -177,6 +178,7 @@ public class CsvStorage {
                 int durationMinutes = Integer.parseInt(parts[3]);
                 int intensityLevel = Integer.parseInt(parts[4]);
                 String notes = parts[5].replaceAll("^\"|\"$", ""); // remove surrounding quotes
+                notes = notes.replace("\"\"", "\""); // unescape quotes
 
                 // find athlete
                 Athlete athlete = null;

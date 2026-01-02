@@ -6,79 +6,71 @@ import model.Athlete;
 import model.SoccerSession;
 import model.Workout;
 import storage.CsvStorage;
-
+import service.AthleteService;
 
 
 public class App {
-    private static Athlete findAthlete(ArrayList<Athlete> athletes, String name) {
-    for (Athlete athlete : athletes) {
-        if (athlete.getName().equalsIgnoreCase(name)) {
-            return athlete;
-        }
-    }
-    return null;
-}
 
-private static int readInt(Scanner scnr, String prompt) {
-    int value;
-    while (true) {
-        System.out.print(prompt);
-        try {
-            value = Integer.parseInt(scnr.nextLine());
-            break;
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a valid integer.");
-        }
-    }
-    return value;
-}
 
-private static int readIntInRange(Scanner scnr, String prompt, int min, int max) {
-    int value;
-    while (true) {
-        value = readInt(scnr, prompt);
-        if (value >= min && value <= max) {
-            break;
-        } else {
-            System.out.println("Input must be between " + min + " and " + max + ".");
+    private static int readInt(Scanner scnr, String prompt) {
+        int value;
+        while (true) {
+            System.out.print(prompt);
+            try {
+                value = Integer.parseInt(scnr.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+            }
         }
+        return value;
     }
-    return value;
-}   
 
-private static double readDouble(Scanner scnr, String prompt) {
-    double value;
-    while(true) {
-        System.out.print(prompt);
-        try {
-            value = Double.parseDouble(scnr.nextLine());
-            break;
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a valid number.");
-        }   
-    }
-    return value;
-}
-
-private static double readDoubleInRange(Scanner scnr, String prompt, double min, double max) {
-    double value;
-    while (true) {
-        value = readDouble(scnr, prompt);
-        if (value >= min && value <= max) {
-            break;
-        } else {
-            System.out.println("Input must be between " + min + " and " + max + ".");
+    private static int readIntInRange(Scanner scnr, String prompt, int min, int max) {
+        int value;
+        while (true) {
+            value = readInt(scnr, prompt);
+            if (value >= min && value <= max) {
+                break;
+            } else {
+                System.out.println("Input must be between " + min + " and " + max + ".");
+            }
         }
+        return value;
+    }   
+
+    private static double readDouble(Scanner scnr, String prompt) {
+        double value;
+        while(true) {
+            System.out.print(prompt);
+            try {
+                value = Double.parseDouble(scnr.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }   
+        }
+        return value;
     }
-    return value;
-}
+
+    private static double readDoubleInRange(Scanner scnr, String prompt, double min, double max) {
+        double value;
+        while (true) {
+            value = readDouble(scnr, prompt);
+            if (value >= min && value <= max) {
+                break;
+            } else {
+                System.out.println("Input must be between " + min + " and " + max + ".");
+            }
+        }
+        return value;
+    }
 
     public static void main(String[] args) {
         System.out.println("Welcome to Athlete Performance System");
         Scanner scnr = new Scanner(System.in);
-        ArrayList<Athlete> athletes = CsvStorage.loadAthletes("../data/athletes.csv");
-        CsvStorage.loadSoccerSessions("../data/soccer_sessions.csv", athletes);
-        CsvStorage.loadWorkouts("../data/workouts.csv", athletes);
+        AthleteService service = new AthleteService("../data/athletes.csv", "../data/soccer_sessions.csv", "../data/workouts.csv");
+        ArrayList<Athlete> athletes = service.getAthletes();
 
         boolean cont = true;
         int num = 0;
@@ -102,74 +94,64 @@ private static double readDoubleInRange(Scanner scnr, String prompt, double min,
                     System.out.println("Add Athlete");
                     System.out.print("Full name: ");
                     String name = scnr.nextLine().trim();
-                    if(findAthlete(athletes, name) != null) {
-                        System.out.println("Athlete with this name already exists.");
-                        break;
-                    }
-                    
                     int age = readIntInRange(scnr, "Age: ", 1, 100);
-                     
                     System.out.print("Sport: ");
                     String sport = scnr.nextLine().trim();
                     System.out.print("Position: ");
-                    String position = scnr.nextLine();
-                    
+                    String position = scnr.nextLine().trim();
                     double weight = readDoubleInRange(scnr, "Weight: ", 1.0, 500.0);
-                   
-                    
                     double height = readDoubleInRange(scnr, "Height: ", 0.5, 2.5);
-                    
                     System.out.print("Country: ");
-                    String country = scnr.nextLine();
-                    Athlete athlete = new Athlete(name, age, sport, position, weight, height, country);
-                    athletes.add(athlete);
-                    System.out.println("Athlete added successfully.");
+                    String country = scnr.nextLine().trim();
+                    boolean added = service.addAthlete(name, age, sport, position, weight, height, country);
+
+                    if (!added) {
+                        System.out.println("Athlete with this name already exists.");
+                    } else {
+                        System.out.println("Athlete added successfully.");
+                    }
 
                     break;
                 case 2:
                     System.out.println("Log soccer session");
                     System.out.print("Athlete name: ");
                     String athleteName = scnr.nextLine().trim();
-                    Athlete found = findAthlete(athletes, athleteName);
-                    if (found == null) {
-                        System.out.println("Athlete not found.");
-                        break;
-                    }
                     System.out.print("Date (YYYY-MM-DD): ");
-                    String date = scnr.nextLine();
+                    String date = scnr.nextLine().trim();
                     int durationMinutes = readIntInRange(scnr, "Duration (minutes): ", 1, 300);
                     
                     int intensityLevel = readIntInRange(scnr, "Intensity level (1-10): ", 1, 10);
                     
                     System.out.print("Notes: ");
-                    String notes = scnr.nextLine();
-                    SoccerSession session = new SoccerSession(date, durationMinutes, intensityLevel, notes);
-                    found.addSoccerSession(session);
-                    System.out.println("Soccer session logged successfully.");
+                    String notes = scnr.nextLine().trim();
+                    boolean logged = service.logSoccerSession(athleteName, date, durationMinutes, intensityLevel, notes);
+                    if (logged) {
+                        System.out.println("Soccer session logged successfully.");
+                    } else {
+                        System.out.println("Athlete not found.");
+                    }
                     break;
+
                 case 3:
                     System.out.println("Log workout");
                     System.out.print("Athlete name: ");
                     String athNameW = scnr.nextLine().trim();
-                    Athlete athFoundW = findAthlete(athletes, athNameW);
-                    if (athFoundW == null) {
-                        System.out.println("Athlete not found.");
-                        break;
-                    }
-                    System.out.println("Date (YYYY-MM-DD): ");
-                    String dateW = scnr.nextLine();
+                    System.out.print("Date (YYYY-MM-DD): ");
+                    String dateW = scnr.nextLine().trim();
                     System.out.print("Workout type: ");
-                    String type = scnr.nextLine();
+                    String type = scnr.nextLine().trim();
                     int durationMinutesW = readIntInRange(scnr, "Duration (minutes): ", 1, 300);
                     
                     int intensityLevelW = readIntInRange(scnr, "Intensity level (1-10): ", 1, 10);
                     
-                    System.out.println("Notes: ");
-                    String notesW = scnr.nextLine();
-                    Workout workout = new Workout(dateW, type, durationMinutesW, intensityLevelW, notesW);
-
-                    athFoundW.addWorkout(workout);
-                    System.out.println("Workout logged successfully.");
+                    System.out.print("Notes: ");
+                    String notesW = scnr.nextLine().trim();
+                    boolean loggedW = service.logWorkout(athNameW, dateW, type, durationMinutesW, intensityLevelW, notesW);
+                    if (loggedW) {
+                        System.out.println("Workout logged successfully.");
+                    } else {
+                        System.out.println("Athlete not found.");
+                    }
                     break;
                 case 4:
                     System.out.println("View Athletes");
@@ -211,7 +193,7 @@ private static double readDoubleInRange(Scanner scnr, String prompt, double min,
                     System.out.println("View athlete summary");
                     System.out.print("Athlete name: ");
                     String athName = scnr.nextLine().trim();
-                    Athlete athFound = findAthlete(athletes, athName);
+                    Athlete athFound = service.findAthleteByName(athName);
                     if (athFound == null) {
                         System.out.println("Athlete not found.");
                         break;
@@ -259,9 +241,7 @@ private static double readDoubleInRange(Scanner scnr, String prompt, double min,
                     break;
                 case 8:
                     System.out.println("Exiting...");
-                    CsvStorage.saveAthletes("../data/athletes.csv", athletes);
-                    CsvStorage.saveSoccerSessions("../data/soccer_sessions.csv", athletes);
-                    CsvStorage.saveWorkouts("../data/workouts.csv", athletes);
+                    service.saveAllData();
                     
                     cont = false;
                     break;
