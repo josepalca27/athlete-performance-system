@@ -28,3 +28,5 @@ data/*.csv
 
 # compiled output
 java-app/out/
+.vscode/
+*:Zone.Identifier
