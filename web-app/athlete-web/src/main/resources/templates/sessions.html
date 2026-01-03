@@ -3,49 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <title>Soccer Sessions</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 24px; }
-    table { border-collapse: collapse; width: 100%; max-width: 1100px; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-    th { background: #f5f5f5; }
-    .top { display: flex; align-items: center; justify-content: space-between; max-width: 1100px; }
-    .links a { margin-left: 12px; text-decoration: none; }
-    .muted { color: #666; }
-  </style>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="top">
-    <h1>Soccer Sessions</h1>
-    <div class="links">
-      <a href="/sessions/new">Log Session</a>
-      <a href="/athletes">Athletes</a>
-      <a href="/">Home</a>
+  <div class="container">
+    <div class="top">
+      <h1>Soccer Sessions</h1>
+        <div class="links">
+          <a href="/sessions/new">Log Session</a>
+          <a href="/athletes">Athletes</a>
+          <a href="/workouts">Workouts</a>
+          <a href="/">Home</a>
+        </div>
     </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Athlete</th>
+          <th>Date</th>
+          <th>Duration (min)</th>
+          <th>Intensity</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:if="${#lists.isEmpty(rows)}">
+          <td colspan="5" class="muted">No soccer sessions found.</td>
+        </tr>
+
+        <tr th:each="r : ${rows}">
+          <td th:text="${r.athleteName}"></td>
+          <td th:text="${r.date}"></td>
+          <td th:text="${r.durationMinutes}"></td>
+          <td th:text="${r.intensityLevel}"></td>
+          <td th:text="${r.notes}"></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Athlete</th>
-        <th>Date</th>
-        <th>Duration (min)</th>
-        <th>Intensity</th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:if="${#lists.isEmpty(rows)}">
-        <td colspan="5" class="muted">No soccer sessions found.</td>
-      </tr>
-
-      <tr th:each="r : ${rows}">
-        <td th:text="${r.athleteName}"></td>
-        <td th:text="${r.date}"></td>
-        <td th:text="${r.durationMinutes}"></td>
-        <td th:text="${r.intensityLevel}"></td>
-        <td th:text="${r.notes}"></td>
-      </tr>
-    </tbody>
-  </table>
 </body>
 </html>

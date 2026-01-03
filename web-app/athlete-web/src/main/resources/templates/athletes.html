@@ -3,51 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <title>Athletes</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 24px; }
-    table { border-collapse: collapse; width: 100%; max-width: 900px; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-    th { background: #f5f5f5; }
-    .top { display: flex; align-items: center; justify-content: space-between; max-width: 900px; }
-    a { text-decoration: none; }
-  </style>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="top">
-  <h1>Athletes</h1>
-  <div>
-    <a href="/athletes/new" style="margin-right:12px;">Add Athlete</a>
-    <a href="/">Home</a>
+  <div class="container">
+
+    <div class="top">
+      <h1>Athletes</h1>
+        <div class="links">
+          <a href="/athletes/new">Add Athlete</a>
+          <a href="/sessions">Sessions</a>
+          <a href="/workouts">Workouts</a>
+          <a href="/">Home</a>
+        </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Sport</th>
+          <th>Position</th>
+          <th>Weight</th>
+          <th>Height</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:if="${#lists.isEmpty(athletes)}">
+          <td colspan="7">No athletes found.</td>
+        </tr>
+        <tr th:each="a : ${athletes}">
+          <td th:text="${a.name}"></td>
+          <td th:text="${a.age}"></td>
+          <td th:text="${a.sport}"></td>
+          <td th:text="${a.position}"></td>
+          <td th:text="${a.weight}"></td>
+          <td th:text="${a.height}"></td>
+          <td th:text="${a.country}"></td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
-</div>
-
-
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Sport</th>
-        <th>Position</th>
-        <th>Weight</th>
-        <th>Height</th>
-        <th>Country</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:if="${#lists.isEmpty(athletes)}">
-        <td colspan="7">No athletes found.</td>
-      </tr>
-      <tr th:each="a : ${athletes}">
-        <td th:text="${a.name}"></td>
-        <td th:text="${a.age}"></td>
-        <td th:text="${a.sport}"></td>
-        <td th:text="${a.position}"></td>
-        <td th:text="${a.weight}"></td>
-        <td th:text="${a.height}"></td>
-        <td th:text="${a.country}"></td>
-      </tr>
-    </tbody>
-  </table>
 </body>
 </html>
