@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.athlete.athlete_web.view.SoccerSessionRow;
+import com.athlete.athlete_web.view.WorkoutRow;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -64,24 +64,24 @@ public class HomeController {
 
     @GetMapping("/sessions")
     public String sessions(Model model) {
-        List<Map<String, Object>> rows = new ArrayList<>();
+        List<SoccerSessionRow> rows = new ArrayList<>();
+
         for (var a : athleteService.getAthletes()) {
-        // Athlete must have getSoccerSessions()
-        for (SoccerSession s : a.getSoccerSessions()) {
-            Map<String, Object> row = new HashMap<>();
-            row.put("athleteName", a.getName());
-            row.put("date", s.getDate());
-            row.put("durationMinutes", s.getDurationMinutes());
-            row.put("intensityLevel", s.getIntensityLevel());
-            row.put("notes", s.getNotes());
-            rows.add(row);
+            for (SoccerSession s : a.getSoccerSessions()) {
+                rows.add(new SoccerSessionRow(
+                        a.getName(),
+                        s.getDate(),
+                        s.getDurationMinutes(),
+                        s.getIntensityLevel(),
+                        s.getNotes()
+                ));
+            }
         }
+
+        model.addAttribute("rows", rows);
+        return "sessions";
     }
-
-    model.addAttribute("rows", rows);
-    return "sessions";
-
-    }   
+ 
     
     @GetMapping("/sessions/new")
     public String newSessionForm(Model model) {
@@ -110,25 +110,26 @@ public class HomeController {
     }
 
     @GetMapping("/workouts")
-public String workouts(Model model) {
-    List<Map<String, Object>> rows = new ArrayList<>();
+    public String workouts(Model model) {
+        List<WorkoutRow> rows = new ArrayList<>();
 
-    for (var a : athleteService.getAthletes()) {
-        for (Workout w : a.getWorkouts()) {
-            Map<String, Object> row = new HashMap<>();
-            row.put("athleteName", a.getName());
-            row.put("date", w.getDate());
-            row.put("type", w.getType());
-            row.put("durationMinutes", w.getDurationMinutes());
-            row.put("intensityLevel", w.getIntensityLevel());
-            row.put("notes", w.getNotes());
-            rows.add(row);
+        for (var a : athleteService.getAthletes()) {
+            for (Workout w : a.getWorkouts()) {
+                rows.add(new WorkoutRow(
+                        a.getName(),
+                        w.getDate(),
+                        w.getType(),
+                        w.getDurationMinutes(),
+                        w.getIntensityLevel(),
+                        w.getNotes()
+                ));
+            }
         }
+
+        model.addAttribute("rows", rows);
+        return "workouts";
     }
 
-    model.addAttribute("rows", rows);
-    return "workouts";
-    }
 
     @GetMapping("/workouts/new")
     public String newWorkoutForm(Model model) {
