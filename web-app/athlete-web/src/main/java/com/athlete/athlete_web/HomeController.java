@@ -1,28 +1,20 @@
 package com.athlete.athlete_web;
 
-import com.athlete.athlete_web.model.Athlete;
-import com.athlete.athlete_web.service.AthleteService;
-import com.athlete.athlete_web.model.Workout;
-import org.apache.tomcat.jni.SSL;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.athlete.athlete_web.model.SoccerSession;
+import com.athlete.athlete_web.model.Workout;
+import com.athlete.athlete_web.service.AthleteService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.util.List;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
