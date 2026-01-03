@@ -2,7 +2,7 @@ package com.athlete.athlete_web;
 
 import com.athlete.athlete_web.model.Athlete;
 import com.athlete.athlete_web.service.AthleteService;
-
+import com.athlete.athlete_web.model.Workout;
 import org.apache.tomcat.jni.SSL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -115,6 +115,52 @@ public class HomeController {
 
     athleteService.saveAllData();
     return "redirect:/sessions";
-}
+    }
 
+    @GetMapping("/workouts")
+public String workouts(Model model) {
+    List<Map<String, Object>> rows = new ArrayList<>();
+
+    for (var a : athleteService.getAthletes()) {
+        for (Workout w : a.getWorkouts()) {
+            Map<String, Object> row = new HashMap<>();
+            row.put("athleteName", a.getName());
+            row.put("date", w.getDate());
+            row.put("type", w.getType());
+            row.put("durationMinutes", w.getDurationMinutes());
+            row.put("intensityLevel", w.getIntensityLevel());
+            row.put("notes", w.getNotes());
+            rows.add(row);
+        }
+    }
+
+    model.addAttribute("rows", rows);
+    return "workouts";
+    }
+
+    @GetMapping("/workouts/new")
+    public String newWorkoutForm(Model model) {
+    model.addAttribute("athletes", athleteService.getAthletes());
+    return "new_workout";   
+
+    }
+
+    @PostMapping("/workouts")
+    public String createWorkout(
+        @RequestParam String athleteName,
+        @RequestParam String date,
+        @RequestParam String type,
+        @RequestParam int durationMinutes,
+        @RequestParam int intensityLevel,
+        @RequestParam(required = false, defaultValue = "") String notes,
+        RedirectAttributes redirectAttributes
+    ) {
+    boolean ok = athleteService.logWorkout(athleteName, date, type, durationMinutes, intensityLevel, notes);
+    if (!ok) {
+        redirectAttributes.addFlashAttribute("error", "Athlete not found. Please select a valid athlete.");
+        return "redirect:/workouts/new";
+    }
+    athleteService.saveAllData();
+    return "redirect:/workouts";
+    }
 }
