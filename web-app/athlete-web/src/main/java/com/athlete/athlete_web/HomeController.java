@@ -32,10 +32,10 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    @ResponseBody
     public String home() {
-        return "Athlete Web App is running!";
+        return "home";
     }
+
 
     @GetMapping("/athletes")
     public String athletes(Model model) {
