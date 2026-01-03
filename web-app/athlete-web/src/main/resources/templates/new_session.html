@@ -7,7 +7,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>Log Soccer Session</h1>
+    <div th:replace="~{fragments/navbar :: navbar('Log Soccer Session')}"></div>
+
 
     <div class="error" th:if="${error}" th:text="${error}"></div>
 

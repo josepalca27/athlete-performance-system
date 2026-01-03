@@ -8,14 +8,8 @@
 <body>
   <div class="container">
 
-    <div class="top">
-      <h1>Athlete Performance Management System</h1>
-      <div class="links">
-        <a href="/athletes">Athletes</a>
-        <a href="/sessions">Sessions</a>
-        <a href="/workouts">Workouts</a>
-      </div>
-    </div>
+    <div th:replace="~{fragments/navbar :: navbar('Athlete Performance Management System')}"></div>
+
 
     <p class="muted">
       Manage athletes, log soccer sessions and workouts, and persist everything to CSV.

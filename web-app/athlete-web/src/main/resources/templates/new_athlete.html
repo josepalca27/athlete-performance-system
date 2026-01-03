@@ -7,7 +7,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Add Athlete</h1>
+    <div th:replace="~{fragments/navbar :: navbar('Add Athlete')}"></div>
 
     <div class="error" th:if="${error}" th:text="${error}"></div>
 

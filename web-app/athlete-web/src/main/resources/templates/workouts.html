@@ -7,16 +7,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="top">
-      <h1>Workouts</h1>
-        <div class="links">
-          <a href="/workouts/new">Log Workout</a>
-          <a href="/sessions">Sessions</a>
-          <a href="/athletes">Athletes</a>
-          <a href="/">Home</a>
-        </div>
-
-    </div>
+<div th:replace="~{fragments/navbar :: navbar('Workouts')}"></div>
 
     <table>
       <thead>

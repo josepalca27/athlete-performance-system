@@ -8,15 +8,7 @@
 <body>
   <div class="container">
 
-    <div class="top">
-      <h1>Athletes</h1>
-        <div class="links">
-          <a href="/athletes/new">Add Athlete</a>
-          <a href="/sessions">Sessions</a>
-          <a href="/workouts">Workouts</a>
-          <a href="/">Home</a>
-        </div>
-    </div>
+<div th:replace="~{fragments/navbar :: navbar('Athletes')}"></div>
 
     <table>
       <thead>
