@@ -101,7 +101,7 @@ public class HomeController {
     boolean ok = athleteService.logSoccerSession(athleteName, date, durationMinutes, intensityLevel, notes);
 
     if (!ok) {
-        redirectAttributes.addFlashAttribute("error", "Athlete not found. Please select a valid athlete.");
+        redirectAttributes.addFlashAttribute("error", "Invalid input. Check date format (YYYY-MM-DD), duration, and intensity.");
         return "redirect:/sessions/new";
     }
 
@@ -150,7 +150,7 @@ public class HomeController {
     ) {
     boolean ok = athleteService.logWorkout(athleteName, date, type, durationMinutes, intensityLevel, notes);
     if (!ok) {
-        redirectAttributes.addFlashAttribute("error", "Athlete not found. Please select a valid athlete.");
+        redirectAttributes.addFlashAttribute("error", "Invalid input. Check date format (YYYY-MM-DD), duration, and intensity.");
         return "redirect:/workouts/new";
     }
     athleteService.saveAllData();
