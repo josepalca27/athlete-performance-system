@@ -62,30 +62,35 @@ public class AthleteService {
     }
 
     public boolean logSoccerSession(String athleteName, String date, int durationMinutes, int intensityLevel, String notes) {
-        Athlete athlete = findAthleteByName(athleteName);
         if (athleteName == null || athleteName.isBlank()) return false;
-        if (!isValidDate(date)) return false;
-        if (durationMinutes <= 0) return false;
-        if (intensityLevel < 1 || intensityLevel > 10) return false;
 
+            Athlete athlete = findAthleteByName(athleteName);
+            if (athlete == null) return false;
 
-        SoccerSession session = new SoccerSession(date, durationMinutes, intensityLevel, notes);
-        athlete.addSoccerSession(session);
-        return true;
+            if (!isValidDate(date)) return false;
+            if (durationMinutes <= 0) return false;
+            if (intensityLevel < 1 || intensityLevel > 10) return false;
+
+            SoccerSession session = new SoccerSession(date, durationMinutes, intensityLevel, notes);
+            athlete.addSoccerSession(session);
+            return true;
     }
 
     public boolean logWorkout(String athleteName, String date, String type, int durationMinutes, int intensityLevel, String notes) {
-        Athlete athlete = findAthleteByName(athleteName);
         if (athleteName == null || athleteName.isBlank()) return false;
+
+        Athlete athlete = findAthleteByName(athleteName);
+        if (athlete == null) return false;
+
         if (type == null || type.isBlank()) return false;
         if (!isValidDate(date)) return false;
         if (durationMinutes <= 0) return false;
         if (intensityLevel < 1 || intensityLevel > 10) return false;
 
-
         Workout workout = new Workout(date, type, durationMinutes, intensityLevel, notes);
         athlete.addWorkout(workout);
         return true;
+
     }
 
     private boolean isValidDate(String date) {

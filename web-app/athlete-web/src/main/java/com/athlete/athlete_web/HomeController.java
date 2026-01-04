@@ -1,5 +1,6 @@
 package com.athlete.athlete_web;
 
+import com.athlete.athlete_web.model.Athlete;
 import com.athlete.athlete_web.model.SoccerSession;
 import com.athlete.athlete_web.model.Workout;
 import com.athlete.athlete_web.service.AthleteService;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.athlete.athlete_web.view.SoccerSessionRow;
 import com.athlete.athlete_web.view.WorkoutRow;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,5 +159,22 @@ public class HomeController {
     }
     athleteService.saveAllData();
     return "redirect:/workouts";
+    
+    }
+
+    @GetMapping("/athletes/detail")
+    public String athleteDetail(@RequestParam String name, Model model, RedirectAttributes redirectAttributes) {
+        Athlete athlete = athleteService.findAthleteByName(name);
+
+        if (athlete == null) {
+            redirectAttributes.addFlashAttribute("error", "Athlete not found.");
+            return "redirect:/athletes";
+        }
+
+        model.addAttribute("athlete", athlete);
+        model.addAttribute("sessions", athlete.getSoccerSessions());
+        model.addAttribute("workouts", athlete.getWorkouts());
+
+        return "athlete_detail";
     }
 }

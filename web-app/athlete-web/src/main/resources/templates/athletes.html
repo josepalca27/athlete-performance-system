@@ -27,7 +27,9 @@
           <td colspan="7">No athletes found.</td>
         </tr>
         <tr th:each="a : ${athletes}">
-          <td th:text="${a.name}"></td>
+          <td>
+            <a th:href="@{/athletes/detail(name=${a.name})}" th:text="${a.name}"></a>
+          </td>
           <td th:text="${a.age}"></td>
           <td th:text="${a.sport}"></td>
           <td th:text="${a.position}"></td>
