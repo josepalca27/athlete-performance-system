@@ -17,6 +17,8 @@ public class AthleteService {
         this.athletesPath = athletesPath;
         this.sessionsPath = sessionsPath;
         this.workoutsPath = workoutsPath;
+
+        //Load from CSV
         this.athletes = CsvStorage.loadAthletes(athletesPath);
         CsvStorage.loadSoccerSessions(sessionsPath, this.athletes);
         CsvStorage.loadWorkouts(workoutsPath, this.athletes);

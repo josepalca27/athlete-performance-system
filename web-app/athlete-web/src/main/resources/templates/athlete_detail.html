@@ -33,17 +33,18 @@
           <th>Notes</th>
         </tr>
       </thead>
-      <tbody>
-        <tr th:if="${#lists.isEmpty(sessions)}">
-          <td colspan="4" class="muted">No soccer sessions found.</td>
+    <tbody>
+        <tr th:if="${#lists.isEmpty(athlete.soccerSessions)}">
+            <td colspan="4" class="muted">No soccer sessions logged yet.</td>
         </tr>
-        <tr th:each="s : ${sessions}">
-          <td th:text="${s.date}"></td>
-          <td th:text="${s.durationMinutes}"></td>
-          <td th:text="${s.intensityLevel}"></td>
-          <td th:text="${s.notes}"></td>
+
+        <tr th:each="s : ${athlete.soccerSessions}">
+            <td th:text="${s.date}"></td>
+            <td th:text="${s.durationMinutes}"></td>
+            <td th:text="${s.intensityLevel}"></td>
+            <td th:text="${s.notes}"></td>
         </tr>
-      </tbody>
+        </tbody>
     </table>
 
     <h2>Workouts</h2>
@@ -58,15 +59,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:if="${#lists.isEmpty(workouts)}">
-          <td colspan="5" class="muted">No workouts found.</td>
+        <tr th:if="${#lists.isEmpty(athlete.workouts)}">
+            <td colspan="5" class="muted">No workouts logged yet.</td>
         </tr>
-        <tr th:each="w : ${workouts}">
-          <td th:text="${w.date}"></td>
-          <td th:text="${w.type}"></td>
-          <td th:text="${w.durationMinutes}"></td>
-          <td th:text="${w.intensityLevel}"></td>
-          <td th:text="${w.notes}"></td>
+
+        <tr th:each="w : ${athlete.workouts}">
+            <td th:text="${w.date}"></td>
+            <td th:text="${w.type}"></td>
+            <td th:text="${w.durationMinutes}"></td>
+            <td th:text="${w.intensityLevel}"></td>
+            <td th:text="${w.notes}"></td>
         </tr>
       </tbody>
     </table>

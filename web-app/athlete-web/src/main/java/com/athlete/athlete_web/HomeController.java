@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.athlete.athlete_web.view.SoccerSessionRow;
 import com.athlete.athlete_web.view.WorkoutRow;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.ArrayList;
@@ -159,7 +157,7 @@ public class HomeController {
     }
     athleteService.saveAllData();
     return "redirect:/workouts";
-    
+
     }
 
     @GetMapping("/athletes/detail")
