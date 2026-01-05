@@ -73,19 +73,19 @@ I was able to practice with this system:
 
 ## Project Structure 
 
-athlete-performance-system/
-├── java-app/          # Core application logic
-├── web-app/           # Spring Boot web app
+athlete-performance-system
+├── java-app/         
+├── web-app/           
 │   ├── controllers
 │   ├── services
 │   ├── models
 │   ├── templates
-│   │   ├── fragments  # Navbar, footer, country flag fragment
+│   │   ├── fragments  
 │   │   └── pages
 │   └── static
 │       └── style.css
-├── data/              # CSV data (included for demo purposes)
-├── docs/              # Planning and documentation
+├── data/              
+├── docs/              
 └── README.md
 
 ## How to Run the Project
