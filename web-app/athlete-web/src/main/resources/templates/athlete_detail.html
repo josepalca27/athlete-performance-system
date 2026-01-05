@@ -19,7 +19,12 @@
         <tr><th>Position</th><td th:text="${athlete.position}"></td></tr>
         <tr><th>Weight</th><td th:text="${athlete.weight}"></td></tr>
         <tr><th>Height</th><td th:text="${athlete.height}"></td></tr>
-        <tr><th>Country</th><td th:text="${athlete.country}"></td></tr>
+        <tr>
+          <th>Country</th>
+          <td>
+            <span th:replace="~{fragments/country_flag :: country(${athlete.country})}"></span>
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -80,5 +85,7 @@
     </div>
 
   </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

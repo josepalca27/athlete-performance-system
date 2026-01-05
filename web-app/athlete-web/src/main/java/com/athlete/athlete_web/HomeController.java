@@ -175,4 +175,10 @@ public class HomeController {
 
         return "athlete_detail";
     }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
 }

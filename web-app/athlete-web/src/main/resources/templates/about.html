@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>About</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <div th:replace="~{fragments/navbar :: navbar('About')}"></div>
+
+    <h1>About</h1>
+    <p class="muted">
+      Athlete Performance Management System is a Spring Boot + Thymeleaf web app that lets you manage athletes,
+      log soccer sessions and workouts, and persist data to CSV.
+    </p>
+
+    <ul>
+      <li>Create and view athletes</li>
+      <li>Log sessions and workouts with validation</li>
+      <li>View athlete detail pages with activity history</li>
+    </ul>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </div>
+</body>
+</html>

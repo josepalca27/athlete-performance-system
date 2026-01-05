@@ -39,11 +39,15 @@
           <td th:text="${a.position}"></td>
           <td th:text="${a.weight}"></td>
           <td th:text="${a.height}"></td>
-          <td th:text="${a.country}"></td>
+          <td>
+            <span th:replace="~{fragments/country_flag :: country(${a.country})}"></span>
+          </td>
         </tr>
       </tbody>
     </table>
 
   </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

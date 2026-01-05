@@ -38,7 +38,6 @@ public class AthleteService {
         if (name == null) 
             return null;
         
-
         name = name.trim();
 
         for (Athlete athlete : athletes) {
