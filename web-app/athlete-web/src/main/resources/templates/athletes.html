@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Athletes</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+
+<div th:replace="~{fragments/navbar :: navbar('Athletes')}"></div>
+
+<div class="actions">
+  <a class="button-link" href="/athletes/new">Add Athlete</a>
+</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Sport</th>
+          <th>Position</th>
+          <th>Weight</th>
+          <th>Height</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:if="${#lists.isEmpty(athletes)}">
+          <td colspan="7">No athletes found.</td>
+        </tr>
+        <tr th:each="a : ${athletes}">
+          <td>
+            <a th:href="@{/athletes/detail(name=${a.name})}" th:text="${a.name}"></a>
+          </td>
+          <td th:text="${a.age}"></td>
+          <td th:text="${a.sport}"></td>
+          <td th:text="${a.position}"></td>
+          <td th:text="${a.weight}"></td>
+          <td th:text="${a.height}"></td>
+          <td>
+            <span th:replace="~{fragments/country_flag :: country(${a.country})}"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

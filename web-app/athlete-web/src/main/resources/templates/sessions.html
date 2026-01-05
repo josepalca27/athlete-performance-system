@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Soccer Sessions</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+<div th:replace="~{fragments/navbar :: navbar('Soccer Sessions')}"></div>
+
+<div class="actions">
+  <a class="button-link" href="/sessions/new">Log Session</a>
+</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Athlete</th>
+          <th>Date</th>
+          <th>Duration (min)</th>
+          <th>Intensity</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:if="${#lists.isEmpty(rows)}">
+          <td colspan="5" class="muted">No soccer sessions found.</td>
+        </tr>
+
+        <tr th:each="r : ${rows}">
+          <td th:text="${r.athleteName}"></td>
+          <td th:text="${r.date}"></td>
+          <td th:text="${r.durationMinutes}"></td>
+          <td th:text="${r.intensityLevel}"></td>
+          <td th:text="${r.notes}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

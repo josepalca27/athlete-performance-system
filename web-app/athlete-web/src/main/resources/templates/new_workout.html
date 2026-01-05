@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Log Workout</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <div th:replace="~{fragments/navbar :: navbar('Log Workout')}"></div>
+
+
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+
+    <form method="post" action="/workouts">
+      <label>Athlete</label>
+      <select name="athleteName" required>
+        <option value="" disabled selected>Select an athlete</option>
+        <option th:each="a : ${athletes}" th:value="${a.name}" th:text="${a.name}"></option>
+      </select>
+
+      <label>Date</label>
+      <input name="date" placeholder="YYYY-MM-DD" required />
+
+      <label>Workout Type</label>
+      <input name="type" placeholder="e.g., Upper Body, Legs, Cardio" required />
+
+      <div class="row">
+        <div>
+          <label>Duration (minutes)</label>
+          <input name="durationMinutes" type="number" min="1" required />
+        </div>
+        <div>
+          <label>Intensity Level</label>
+          <input name="intensityLevel" type="number" min="1" max="10" required />
+        </div>
+      </div>
+
+      <label>Notes</label>
+      <input name="notes" />
+
+      <div class="actions">
+        <button type="submit">Save Workout</button>
+        <a class="button-link" href="/workouts">Cancel</a>
+      </div>
+    </form>
+  </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div th:fragment="navbar(activePage)">
+    <div class="top">
+      <h1 th:text="${activePage}">Page</h1>
+
+      <div class="links">
+        <a href="/athletes">Athletes</a>
+        <a href="/sessions">Sessions</a>
+        <a href="/workouts">Workouts</a>
+        <a href="/about">About</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

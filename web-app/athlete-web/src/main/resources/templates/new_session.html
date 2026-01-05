@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Log Soccer Session</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <div th:replace="~{fragments/navbar :: navbar('Log Soccer Session')}"></div>
+
+
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+
+    <form method="post" action="/sessions">
+      <label>Athlete</label>
+      <select name="athleteName" required>
+        <option value="" disabled selected>Select an athlete</option>
+        <option th:each="a : ${athletes}" th:value="${a.name}" th:text="${a.name}"></option>
+      </select>
+
+      <label>Date</label>
+      <input name="date" placeholder="YYYY-MM-DD" required />
+
+      <div class="row">
+        <div>
+          <label>Duration (minutes)</label>
+          <input name="durationMinutes" type="number" min="1" required />
+        </div>
+        <div>
+          <label>Intensity Level</label>
+          <input name="intensityLevel" type="number" min="1" max="10" required />
+        </div>
+      </div>
+
+      <label>Notes</label>
+      <input name="notes" />
+
+      <div class="actions">
+        <button type="submit">Save Session</button>
+        <a class="button-link" href="/sessions">Cancel</a>
+      </div>
+    </form>
+  </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

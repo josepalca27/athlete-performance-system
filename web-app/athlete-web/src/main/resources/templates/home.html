@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Athlete Performance Management System</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <div th:replace="~{fragments/navbar :: navbar('Athlete Performance Management System')}"></div>
+
+
+    <p class="muted">
+      Manage athletes, log soccer sessions and workouts, and persist everything to CSV.
+    </p>
+
+    <div class="actions">
+      <a class="button-link" href="/athletes/new">Add Athlete</a>
+      <a class="button-link" href="/sessions/new">Log Session</a>
+      <a class="button-link" href="/workouts/new">Log Workout</a>
+    </div>
+
+  </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

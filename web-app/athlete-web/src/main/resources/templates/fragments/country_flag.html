@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <span th:fragment="country(country)">
+      <span th:switch="${country}">
+        <span th:case="'Honduras'">🇭🇳 Honduras (HND)</span>
+        <span th:case="'Mexico'">🇲🇽 Mexico (MEX)</span>
+        <span th:case="'El Salvador'">🇸🇻 El Salvador (SLV)</span>
+        <span th:case="*">🌍 <span th:text="${country}"></span></span>
+      </span>
+    </span>
+  </body>
+</html>

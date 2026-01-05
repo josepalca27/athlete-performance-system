@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${athlete.name} + ' - Details'">Athlete Details</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <div th:replace="~{fragments/navbar :: navbar('Athlete Details')}"></div>
+
+    <h1 th:text="${athlete.name}">Athlete Name</h1>
+
+    <table>
+      <tbody>
+        <tr><th>Age</th><td th:text="${athlete.age}"></td></tr>
+        <tr><th>Sport</th><td th:text="${athlete.sport}"></td></tr>
+        <tr><th>Position</th><td th:text="${athlete.position}"></td></tr>
+        <tr><th>Weight</th><td th:text="${athlete.weight}"></td></tr>
+        <tr><th>Height</th><td th:text="${athlete.height}"></td></tr>
+        <tr>
+          <th>Country</th>
+          <td>
+            <span th:replace="~{fragments/country_flag :: country(${athlete.country})}"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Soccer Sessions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Duration (min)</th>
+          <th>Intensity</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+    <tbody>
+        <tr th:if="${#lists.isEmpty(athlete.soccerSessions)}">
+            <td colspan="4" class="muted">No soccer sessions logged yet.</td>
+        </tr>
+
+        <tr th:each="s : ${athlete.soccerSessions}">
+            <td th:text="${s.date}"></td>
+            <td th:text="${s.durationMinutes}"></td>
+            <td th:text="${s.intensityLevel}"></td>
+            <td th:text="${s.notes}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Workouts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Duration (min)</th>
+          <th>Intensity</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:if="${#lists.isEmpty(athlete.workouts)}">
+            <td colspan="5" class="muted">No workouts logged yet.</td>
+        </tr>
+
+        <tr th:each="w : ${athlete.workouts}">
+            <td th:text="${w.date}"></td>
+            <td th:text="${w.type}"></td>
+            <td th:text="${w.durationMinutes}"></td>
+            <td th:text="${w.intensityLevel}"></td>
+            <td th:text="${w.notes}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <a th:href="@{/sessions/new}" class="button-link">Log Session</a>
+      <a th:href="@{/workouts/new}" class="button-link">Log Workout</a>
+      <a th:href="@{/athletes}" class="button-link">Back to Athletes</a>
+    </div>
+
+  </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
