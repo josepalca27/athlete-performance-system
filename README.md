@@ -71,23 +71,26 @@ I was able to practice with this system:
 - CSV file persistence
 - Git & GitHub
 
-## Project Structure 
+## Project Structure
 
-athlete-performance-system
-├── java-app/         
-├── web-app/           
-│   ├── controllers
-│   ├── services
-│   ├── models
-│   ├── templates
-│   │   ├── fragments  
-│   │   └── pages
-│   └── static
-│       └── style.css
-├── data/              
-├── docs/              
-└── README.md
 
+```text
+📦 athlete-performance-system
+├── 📁 java-app/                # Core application logic (CLI + services)
+├── 📁 web-app/
+│   └── 📁 athlete-web/
+│       ├── 📁 controllers      # Spring MVC controllers
+│       ├── 📁 services         # Business logic layer
+│       ├── 📁 models           # Domain models
+│       ├── 📁 templates
+│       │   ├── 📁 fragments    # Navbar, footer, shared UI
+│       │   └── 📁 pages        # Thymeleaf pages
+│       └── 📁 static
+│           └── 📄 style.css    # Global styling
+├── 📁 data/                    # CSV data (included for demo purposes)
+├── 📁 docs/                    # Planning and documentation
+└── 📄 README.md
+```
 ## How to Run the Project
  ### Prerequisites
 
@@ -96,8 +99,8 @@ athlete-performance-system
 
   ### Run the app 
 
-  cd web-app/athlete-web
-./mvnw spring-boot:run
+- cd web-app/athlete-web
+- ./mvnw spring-boot:run
 
 Then open your brower and go to: http://localhost:8080
 
