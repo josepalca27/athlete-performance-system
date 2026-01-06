@@ -113,7 +113,6 @@ When someone runs the project, they may add more and view realistic data right a
 
 Some ideas I may explore later:
 
-- Edit or delete athletes
 - Search and filtering
 - Charts for performance trends
 - Database persistence (JPA / PostgreSQL)
