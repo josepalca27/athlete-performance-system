@@ -80,7 +80,16 @@
 
     <div class="actions">
       <a th:href="@{/sessions/new}" class="button-link">Log Session</a>
-      <a th:href="@{/workouts/new}" class="button-link">Log Workout</a>
+        <a th:href="@{/workouts/new}" class="button-link">Log Workout</a>
+
+        <a th:href="@{/athletes/edit(name=${athlete.name})}" class="button-link">Edit Athlete</a>
+
+        <form th:action="@{/athletes/delete}" method="post" style="display:inline;"
+              onsubmit="return confirm('Delete ' + '[[${athlete.name}]]' + '? This will also remove sessions/workouts.');">
+          <input type="hidden" name="name" th:value="${athlete.name}" />
+          <button type="submit" class="button-link danger">Delete Athlete</button>
+        </form>
+
       <a th:href="@{/athletes}" class="button-link">Back to Athletes</a>
     </div>
 

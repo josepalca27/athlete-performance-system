@@ -24,11 +24,12 @@
           <th>Weight</th>
           <th>Height</th>
           <th>Country</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr th:if="${#lists.isEmpty(athletes)}">
-          <td colspan="7">No athletes found.</td>
+          <td colspan="8">No athletes found.</td>
         </tr>
         <tr th:each="a : ${athletes}">
           <td>
@@ -42,6 +43,15 @@
           <td>
             <span th:replace="~{fragments/country_flag :: country(${a.country})}"></span>
           </td>
+          <td>
+            <a class="button-link" th:href="@{/athletes/edit(name=${a.name})}">Edit</a>
+
+            <form th:action="@{/athletes/delete}" method="post" style="display:inline;"
+                  onsubmit="return confirm('Delete ' + '[[${a.name}]]' + '? This will also remove sessions/workouts.');">
+              <input type="hidden" name="name" th:value="${a.name}" />
+              <button type="submit" class="button-link danger">Delete</button>
+            </form>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -51,3 +61,4 @@
 
 </body>
 </html>
+

@@ -4,6 +4,12 @@ import com.athlete.athlete_web.storage.CsvStorage;
 import java.util.ArrayList;
 import com.athlete.athlete_web.model.SoccerSession;
 import com.athlete.athlete_web.model.Workout;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.format.SignStyle;
+import java.time.temporal.ChronoField;
+
 
 
 public class AthleteService {
@@ -95,8 +101,62 @@ public class AthleteService {
     }
 
     private boolean isValidDate(String date) {
-        // Simple validation for YYYY-MM-DD format
-        return date != null && date.matches("\\d{4}-\\d{2}-\\d{2}");
+        if (date == null) return false;
+        date = date.trim();
+        if (date.isEmpty()) return false;
+
+        var flexible = new DateTimeFormatterBuilder()
+                .appendValue(ChronoField.YEAR, 4)
+                .appendLiteral('-')
+                .appendValue(ChronoField.MONTH_OF_YEAR, 1, 2, SignStyle.NOT_NEGATIVE)
+                .appendLiteral('-')
+                .appendValue(ChronoField.DAY_OF_MONTH, 1, 2, SignStyle.NOT_NEGATIVE)
+                .toFormatter();
+
+        try {
+            LocalDate.parse(date, flexible);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+
     }
     
+    public boolean deleteAthlete(String name) {
+        Athlete athlete = findAthleteByName(name);
+        if (athlete != null) {
+            athletes.remove(athlete);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateAthlete(String originalName, String newName, int age, String sport, String position, double weight, double height, String country) {
+        Athlete athlete = findAthleteByName(originalName);
+        if (athlete == null) return false;
+
+        if (newName == null) return false;
+
+        newName = newName.trim();
+        sport = (sport == null) ? "" : sport.trim();
+        position = (position == null) ? "" : position.trim();
+        country = (country == null) ? "" : country.trim();
+
+        if (newName.isEmpty() || sport.isEmpty() || position.isEmpty() || country.isEmpty()) return false;
+        if (age <= 0) return false;
+        if (weight <= 0) return false;
+        if (height <= 0) return false;
+
+        // If renaming, ensure unique (case-insensitive)
+        if (!originalName.equalsIgnoreCase(newName) && findAthleteByName(newName) != null) return false;
+
+        athlete.setName(newName);
+        athlete.setAge(age);
+        athlete.setSport(sport);
+        athlete.setPosition(position);
+        athlete.setWeight(weight);
+        athlete.setHeight(height);
+        athlete.setCountry(country);
+        return true;
+    }
 }
