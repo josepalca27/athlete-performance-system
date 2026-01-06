@@ -51,25 +51,10 @@ th {
   color: var(--muted);
 }
 
-form {
-  max-width: 560px;
-  background: white;
-  padding: 16px;
-  border: 1px solid #ddd;
-  margin-top: 16px;
-}
 
-.button-link {
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  background: #f5f5f5;
-  text-decoration: none;
-  color: inherit;
-  border-radius: 4px;
-}
 
 .button-link:hover {
-  background: #eee;
+  background: #f2f2f2;
 }
 
 button {
@@ -85,14 +70,33 @@ button:hover {
   border-color: var(--primary);
 }
 
-a.button-link {
+.button-link {
   padding: 10px 14px;
   border: 1px solid #ccc;
   background: #fff;
-  display: inline-block;
+  border-radius: 6px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: auto;
+  white-space: nowrap;
+
   text-decoration: none;
   color: inherit;
-  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.button-link.danger {
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.button-link.danger:hover {
+  background: #fee2e2;
 }
 
 a.button-link:hover {
@@ -134,10 +138,89 @@ input, select { width: 100%; padding: 10px; margin-top: 6px; box-sizing: border-
 .row { display: flex; gap: 12px; }
 .row > div { flex: 1; }
 
-.actions { margin-top: 16px; display: flex; gap: 12px; }
+.actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 button { padding: 10px 14px; cursor: pointer; }
 
 .error {
   color: var(--error);
   font-weight: 500;
+}
+
+.actions form {
+  max-width: none;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  display: inline-flex;
+}
+
+.actions .button-link,
+.actions button {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: auto !important;
+  white-space: nowrap;
+}
+
+.actions .button-link {
+  text-decoration: none;
+}
+
+/* Hover */
+.actions .button-link:hover,
+.actions button:hover {
+  background: #f2f2f2;
+}
+
+form {
+  max-width: 560px;
+  background: white;
+  padding: 16px;
+  border: 1px solid #ddd;
+  margin-top: 16px;
+}
+
+td .button-link {
+  padding: 6px 10px;
+  font-size: 0.9rem;
+}
+
+.actions .danger {
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.actions .danger:hover {
+  background: #fee2e2;
+}
+
+td .button-link {
+  height: 40px;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+/* small spacing between Edit + Delete */
+td .button-link + form,
+td form + .button-link {
+  margin-left: 10px;
 }

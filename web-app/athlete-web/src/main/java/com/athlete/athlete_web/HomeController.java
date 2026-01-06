@@ -181,4 +181,57 @@ public class HomeController {
         return "about";
     }
 
+    @GetMapping("/athletes/edit")
+    public String editAthleteForm(@RequestParam String name, Model model, RedirectAttributes redirectAttributes) {
+        Athlete athlete = athleteService.findAthleteByName(name);
+
+        if (athlete == null) {
+            redirectAttributes.addFlashAttribute("error", "Athlete not found.");
+            return "redirect:/athletes";
+        }
+
+        model.addAttribute("athlete", athlete);
+        return "edit_athlete";
+    }
+
+    @PostMapping("/athletes/update")
+    public String updateAthlete(
+            @RequestParam String originalName,
+            @RequestParam String name,
+            @RequestParam int age,
+            @RequestParam String sport,
+            @RequestParam String position,
+            @RequestParam double weight,
+            @RequestParam double height,
+            @RequestParam String country,
+            RedirectAttributes redirectAttributes
+    ) {
+        boolean ok = athleteService.updateAthlete(originalName, name, age, sport, position, weight, height, country);
+
+        if (!ok) {
+            // show friendly error immediately
+            return "redirect:/athletes/edit?name=" + originalName + "&error=Update%20failed.%20Check%20inputs%20and%20make%20sure%20the%20name%20is%20unique.";
+        }
+
+        athleteService.saveAllData();
+
+        // redirect to the UPDATED name (important when renaming!)
+        return "redirect:/athletes/detail?name=" + name;
+    }
+
+
+    @PostMapping("/athletes/delete")
+    public String deleteAthlete(@RequestParam String name, RedirectAttributes redirectAttributes) {
+        boolean ok = athleteService.deleteAthlete(name);
+
+        if (!ok) {
+            redirectAttributes.addFlashAttribute("error", "Athlete not found.");
+            return "redirect:/athletes";
+        }
+
+        athleteService.saveAllData();
+        redirectAttributes.addFlashAttribute("success", "Athlete deleted.");
+        return "redirect:/athletes";
+    }
+
 }
