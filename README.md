@@ -96,9 +96,10 @@ I was able to practice with this system:
 
  - Java 17+ (Java 21 recommended)
  - Maven
+ - Git
 
   ### Run the app 
-
+- git clone https://github.com/josepalca27/athlete-performance-system.git
 - cd web-app/athlete-web
 - ./mvnw spring-boot:run
 
