@@ -1,4 +1,4 @@
-# Athlete Performance Management System
+# Athlete Performance System
 
 The Athlete Performance Management System is a web application built using Spring Boot and Thymeleaf that helps manage athletes, record workouts and training sessions, and monitor performance statistics over time.
 
