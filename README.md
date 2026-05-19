@@ -1,5 +1,13 @@
 # Athlete Performance Management System
 
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-green)
+![Maven](https://img.shields.io/badge/Maven-Build-blue)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-Frontend-darkgreen)
+![CSV](https://img.shields.io/badge/Storage-CSV-lightgrey)
+![Git](https://img.shields.io/badge/Git-Workflow-red)
+
+
 The Athlete Performance Management System is a web application built using Spring Boot and Thymeleaf that helps manage athletes, record workouts and training sessions, and monitor performance statistics over time.
 
 I created this project because I wanted to combine my love of sports, fitness, and performance tracking with my expertise in software engineering to produce a useful, real-world application.
