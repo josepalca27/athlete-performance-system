@@ -5,6 +5,7 @@ import com.athlete.athlete_web.service.AthleteService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,6 +24,12 @@ public class AthleteApiController {
     @GetMapping("/athletes")
     public List<Athlete> getAllAthletes() {
         return athleteService.getAthletes();
+    }
+
+    @GetMapping("/athletes/find")
+    public Athlete findAthletes(@RequestParam String name) {
+        return athleteService.findAthleteByName(name);
+
     }
 
 }
